@@ -462,7 +462,7 @@
             <div class="px-4 py-6 sm:px-0">
                 <!-- Welcome Section -->
                 <div class="mb-8">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome back!</h2>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome back, <span id="welcome-user-name" class="text-indigo-600"></span>!</h2>
                     <p class="text-gray-600">Here's what's happening in your HR DataMatrix system.</p>
                 </div>
                 
@@ -477,7 +477,7 @@
                             </div>
                             <div class="ml-4">
                                 <p class="text-sm font-medium text-gray-600">Total Users</p>
-                                <p class="text-2xl font-bold text-gray-900">150+</p>
+                                <p class="text-2xl font-bold text-gray-900" id="total-users">0</p>
                             </div>
                         </div>
                     </div>
@@ -491,7 +491,7 @@
                             </div>
                             <div class="ml-4">
                                 <p class="text-sm font-medium text-gray-600">Active Roles</p>
-                                <p class="text-2xl font-bold text-gray-900">45</p>
+                                <p class="text-2xl font-bold text-gray-900" id="total-roles">0</p>
                             </div>
                         </div>
                     </div>
@@ -505,7 +505,7 @@
                             </div>
                             <div class="ml-4">
                                 <p class="text-sm font-medium text-gray-600">Succession Plans</p>
-                                <p class="text-2xl font-bold text-gray-900">28</p>
+                                <p class="text-2xl font-bold text-gray-900" id="total-plans">0</p>
                             </div>
                         </div>
                     </div>
@@ -519,7 +519,7 @@
                             </div>
                             <div class="ml-4">
                                 <p class="text-sm font-medium text-gray-600">Pending Requests</p>
-                                <p class="text-2xl font-bold text-gray-900">12</p>
+                                <p class="text-2xl font-bold text-gray-900" id="pending-requests">0</p>
                             </div>
                         </div>
                     </div>
@@ -590,13 +590,76 @@
                 <div id="roles-section" class="hidden bg-white rounded-xl shadow-md p-8">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-2xl font-bold text-gray-900">Role Management</h3>
-                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-300">
+                        <button id="add-role-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-300">
                             + Add Role
                         </button>
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="roles-grid">
-                        <!-- Roles will be loaded here -->
+                    <!-- Add Role Modal -->
+                    <div id="add-role-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+                        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                            <div class="mt-3">
+                                <h3 class="text-lg font-medium text-gray-900 mb-4">Add New Role</h3>
+                                <form id="add-role-form" class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Role Title</label>
+                                        <input type="text" id="role-title" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Department</label>
+                                        <select id="role-department" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                            <option value="">Select Department</option>
+                                            <option value="CCR">CCR</option>
+                                            <option value="I2R">I2R</option>
+                                            <option value="MKD">MKD</option>
+                                            <option value="Bacardi">Bacardi</option>
+                                            <option value="Xone">Xone</option>
+                                            <option value="CIS">CIS</option>
+                                            <option value="DIR">DIR</option>
+                                            <option value="CQIS">CQIS</option>
+                                            <option value="OSD">OSD</option>
+                                            <option value="DAT">DAT</option>
+                                            <option value="DLF">DLF</option>
+                                            <option value="Riskweb">Riskweb</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Criticality</label>
+                                        <select id="role-criticality" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                            <option value="">Select Criticality</option>
+                                            <option value="High">High</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="Low">Low</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Business Line</label>
+                                        <input type="text" id="role-business-line" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div class="flex space-x-3 pt-4">
+                                        <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md font-medium">Add Role</button>
+                                        <button type="button" onclick="closeAddRoleModal()" class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-md font-medium">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role Title</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Criticality</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Business Line</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200" id="roles-table-body">
+                                <!-- Roles will be loaded here -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 
@@ -637,41 +700,98 @@
                 <div id="analytics-section" class="hidden bg-white rounded-xl shadow-md p-8">
                     <h3 class="text-2xl font-bold text-gray-900 mb-6">Analytics Dashboard</h3>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-6 text-white">
-                            <h4 class="text-lg font-semibold mb-2">Department Distribution</h4>
-                            <div class="space-y-2">
-                                <div class="flex justify-between">
-                                    <span>CCR</span>
-                                    <span>25%</span>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                        <!-- Department Distribution Bar Chart -->
+                        <div class="bg-white border border-gray-200 rounded-xl p-6">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-4">Department Distribution</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <span class="w-20 text-sm text-gray-600">CCR</span>
+                                    <div class="flex-1 bg-gray-200 rounded-full h-4 mx-3">
+                                        <div class="bg-blue-600 h-4 rounded-full" style="width: 25%"></div>
+                                    </div>
+                                    <span class="w-12 text-sm font-medium text-gray-900">25%</span>
                                 </div>
-                                <div class="flex justify-between">
-                                    <span>I2R</span>
-                                    <span>20%</span>
+                                <div class="flex items-center">
+                                    <span class="w-20 text-sm text-gray-600">I2R</span>
+                                    <div class="flex-1 bg-gray-200 rounded-full h-4 mx-3">
+                                        <div class="bg-green-600 h-4 rounded-full" style="width: 20%"></div>
+                                    </div>
+                                    <span class="w-12 text-sm font-medium text-gray-900">20%</span>
                                 </div>
-                                <div class="flex justify-between">
-                                    <span>MKD</span>
-                                    <span>15%</span>
+                                <div class="flex items-center">
+                                    <span class="w-20 text-sm text-gray-600">MKD</span>
+                                    <div class="flex-1 bg-gray-200 rounded-full h-4 mx-3">
+                                        <div class="bg-purple-600 h-4 rounded-full" style="width: 15%"></div>
+                                    </div>
+                                    <span class="w-12 text-sm font-medium text-gray-900">15%</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="w-20 text-sm text-gray-600">Bacardi</span>
+                                    <div class="flex-1 bg-gray-200 rounded-full h-4 mx-3">
+                                        <div class="bg-orange-600 h-4 rounded-full" style="width: 12%"></div>
+                                    </div>
+                                    <span class="w-12 text-sm font-medium text-gray-900">12%</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="w-20 text-sm text-gray-600">Others</span>
+                                    <div class="flex-1 bg-gray-200 rounded-full h-4 mx-3">
+                                        <div class="bg-red-600 h-4 rounded-full" style="width: 28%"></div>
+                                    </div>
+                                    <span class="w-12 text-sm font-medium text-gray-900">28%</span>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="bg-gradient-to-r from-green-500 to-teal-600 rounded-xl p-6 text-white">
-                            <h4 class="text-lg font-semibold mb-2">Role Distribution</h4>
-                            <div class="space-y-2">
-                                <div class="flex justify-between">
-                                    <span>HR Manager</span>
-                                    <span>30%</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span>HR Business Partner</span>
-                                    <span>25%</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span>Specialist</span>
-                                    <span>45%</span>
+                        <!-- Role Distribution Pie Chart -->
+                        <div class="bg-white border border-gray-200 rounded-xl p-6">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-4">Role Distribution</h4>
+                            <div class="flex items-center justify-center">
+                                <div class="relative w-32 h-32">
+                                    <!-- Pie Chart using CSS -->
+                                    <div class="absolute inset-0 rounded-full border-8 border-blue-500" style="clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 50% 100%)"></div>
+                                    <div class="absolute inset-0 rounded-full border-8 border-green-500" style="clip-path: polygon(50% 50%, 50% 0%, 75% 0%, 75% 100%, 50% 100%)"></div>
+                                    <div class="absolute inset-0 rounded-full border-8 border-purple-500" style="clip-path: polygon(50% 50%, 75% 0%, 100% 0%, 100% 100%, 75% 100%)"></div>
+                                    <div class="absolute inset-0 rounded-full border-8 border-orange-500" style="clip-path: polygon(50% 50%, 0% 0%, 25% 0%, 25% 100%, 0% 100%)"></div>
                                 </div>
                             </div>
+                            <div class="mt-4 space-y-2">
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+                                    <span class="text-sm text-gray-600">HR Manager (30%)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                                    <span class="text-sm text-gray-600">HR Business Partner (25%)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
+                                    <span class="text-sm text-gray-600">Specialist (25%)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 bg-orange-500 rounded-full mr-2"></div>
+                                    <span class="text-sm text-gray-600">Other Roles (20%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Analytics -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-6 text-white">
+                            <h4 class="text-lg font-semibold mb-2">User Growth</h4>
+                            <p class="text-3xl font-bold">+12%</p>
+                            <p class="text-indigo-100 text-sm">vs last month</p>
+                        </div>
+                        <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-6 text-white">
+                            <h4 class="text-lg font-semibold mb-2">Succession Coverage</h4>
+                            <p class="text-3xl font-bold">78%</p>
+                            <p class="text-green-100 text-sm">of critical roles</p>
+                        </div>
+                        <div class="bg-gradient-to-r from-orange-500 to-red-600 rounded-xl p-6 text-white">
+                            <h4 class="text-lg font-semibold mb-2">Avg Response Time</h4>
+                            <p class="text-3xl font-bold">2.3 days</p>
+                            <p class="text-orange-100 text-sm">for access requests</p>
                         </div>
                     </div>
                 </div>
@@ -718,6 +838,10 @@
             
             document.getElementById('user-name').textContent = user.name;
             document.getElementById('user-role').textContent = `${user.role} • ${user.department}`;
+            document.getElementById('welcome-user-name').textContent = user.name;
+            
+            // Update dashboard stats
+            updateDashboardStats();
         }
         
         // Show login
@@ -824,6 +948,49 @@
         document.getElementById('show-signup').addEventListener('click', showSignup);
         document.getElementById('show-login').addEventListener('click', showLogin);
         
+        // Event listeners for role management
+        document.getElementById('add-role-btn').addEventListener('click', openAddRoleModal);
+        
+        // Handle add role form submission
+        document.getElementById('add-role-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('role-title').value;
+            const department = document.getElementById('role-department').value;
+            const criticality = document.getElementById('role-criticality').value;
+            const businessLine = document.getElementById('role-business-line').value;
+            
+            if (!title || !department || !criticality || !businessLine) {
+                showToast('Please fill in all fields', 'error');
+                return;
+            }
+            
+            // Add new role to the table
+            const tbody = document.getElementById('roles-table-body');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${title}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${department}</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 py-1 rounded-full text-xs font-medium ${criticality === 'High' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'}">
+                        ${criticality}
+                    </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${businessLine}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
+                    <button class="text-red-600 hover:text-red-900">Delete</button>
+                </td>
+            `;
+            tbody.appendChild(newRow);
+            
+            // Update dashboard stats
+            updateDashboardStats();
+            
+            showToast('Role added successfully!', 'success');
+            closeAddRoleModal();
+        });
+        
         // Handle logout
         document.getElementById('logout-button').addEventListener('click', function() {
             localStorage.removeItem('token');
@@ -927,24 +1094,22 @@
                 { title: 'Talent Acquisition Manager', department: 'Bacardi', criticality: 'High', business_line: 'Growth' }
             ];
             
-            const grid = document.getElementById('roles-grid');
-            grid.innerHTML = roles.map(role => `
-                <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-300">
-                    <h4 class="text-lg font-semibold text-gray-900 mb-2">${role.title}</h4>
-                    <div class="space-y-2 text-sm text-gray-600">
-                        <p><span class="font-medium">Department:</span> ${role.department}</p>
-                        <p><span class="font-medium">Criticality:</span> 
-                            <span class="px-2 py-1 rounded-full text-xs ${role.criticality === 'High' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'}">
-                                ${role.criticality}
-                            </span>
-                        </p>
-                        <p><span class="font-medium">Business Line:</span> ${role.business_line}</p>
-                    </div>
-                    <div class="mt-4 flex space-x-2">
-                        <button class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Edit</button>
-                        <button class="text-red-600 hover:text-red-900 text-sm font-medium">Delete</button>
-                    </div>
-                </div>
+            const tbody = document.getElementById('roles-table-body');
+            tbody.innerHTML = roles.map(role => `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${role.title}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${role.department}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 py-1 rounded-full text-xs font-medium ${role.criticality === 'High' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'}">
+                            ${role.criticality}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${role.business_line}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
+                        <button class="text-red-600 hover:text-red-900">Delete</button>
+                    </td>
+                </tr>
             `).join('');
         }
         
@@ -1022,6 +1187,53 @@
         function loadAnalytics() {
             // Analytics data is already in the HTML
             showToast('Analytics data loaded successfully!', 'info');
+        }
+        
+        // Add Role Modal Functions
+        function openAddRoleModal() {
+            document.getElementById('add-role-modal').classList.remove('hidden');
+        }
+        
+        function closeAddRoleModal() {
+            document.getElementById('add-role-modal').classList.add('hidden');
+            document.getElementById('add-role-form').reset();
+        }
+        
+        // Update dashboard stats with real data
+        function updateDashboardStats() {
+            const users = [
+                { name: 'Priya Sharma', email: 'priya.sharma@ccr.com', department: 'CCR', role: 'HR Manager', status: 'Active' },
+                { name: 'Rohan Mehta', email: 'rohan.mehta@i2r.com', department: 'I2R', role: 'HR Business Partner', status: 'Active' },
+                { name: 'Anjali Verma', email: 'anjali.verma@mkd.com', department: 'MKD', role: 'Recruitment Specialist', status: 'Active' },
+                { name: 'Vikram Rao', email: 'vikram.rao@bacardi.com', department: 'Bacardi', role: 'Talent Acquisition Manager', status: 'Active' },
+                { name: 'Sneha Kapoor', email: 'sneha.kapoor@xone.com', department: 'Xone', role: 'Learning & Development Specialist', status: 'Active' }
+            ];
+            
+            const roles = [
+                { title: 'HR Director', department: 'CCR', criticality: 'High', business_line: 'Core Business' },
+                { title: 'HR Manager', department: 'CCR', criticality: 'High', business_line: 'Core Business' },
+                { title: 'HR Business Partner', department: 'I2R', criticality: 'Medium', business_line: 'Support' },
+                { title: 'Recruitment Specialist', department: 'MKD', criticality: 'Medium', business_line: 'Operations' },
+                { title: 'Talent Acquisition Manager', department: 'Bacardi', criticality: 'High', business_line: 'Growth' }
+            ];
+            
+            const plans = [
+                { role: 'HR Director', incumbent: 'John Smith', employee_id: 'EMP001', tenure: '8 years', retirement: '2026-12-31', readiness: 'Ready Now' },
+                { role: 'HR Manager', incumbent: 'Priya Sharma', employee_id: 'EMP002', tenure: '5 years', retirement: '2027-06-15', readiness: 'Ready in 6 months' },
+                { role: 'HR Business Partner', incumbent: 'Rohan Mehta', employee_id: 'EMP003', tenure: '3 years', retirement: '2028-03-20', readiness: 'Ready in 1 year' }
+            ];
+            
+            const requests = [
+                { name: 'Uday Kumar', email: 'uday.kumar@company.com', department: 'CCR', status: 'Pending', date: '2025-08-31' },
+                { name: 'Sarah Johnson', email: 'sarah.johnson@company.com', department: 'I2R', status: 'Approved', date: '2025-08-30' },
+                { name: 'Mike Chen', email: 'mike.chen@company.com', department: 'MKD', status: 'Rejected', date: '2025-08-29' }
+            ];
+            
+            // Update dashboard stats
+            document.getElementById('total-users').textContent = users.length;
+            document.getElementById('total-roles').textContent = roles.length;
+            document.getElementById('total-plans').textContent = plans.length;
+            document.getElementById('pending-requests').textContent = requests.filter(r => r.status === 'Pending').length;
         }
         
         // Initialize app
