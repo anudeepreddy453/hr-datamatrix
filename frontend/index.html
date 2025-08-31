@@ -603,7 +603,20 @@
                                 <form id="add-role-form" class="space-y-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Role Title</label>
-                                        <input type="text" id="role-title" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                        <select id="role-title" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                            <option value="">Select Role Title</option>
+                                            <option value="HR Director">HR Director</option>
+                                            <option value="HR Manager">HR Manager</option>
+                                            <option value="HR Business Partner">HR Business Partner</option>
+                                            <option value="Recruitment Specialist">Recruitment Specialist</option>
+                                            <option value="Talent Acquisition Manager">Talent Acquisition Manager</option>
+                                            <option value="Learning & Development Specialist">Learning & Development Specialist</option>
+                                            <option value="Compensation & Benefits Analyst">Compensation & Benefits Analyst</option>
+                                            <option value="Employee Relations Specialist">Employee Relations Specialist</option>
+                                            <option value="HR Operations Specialist">HR Operations Specialist</option>
+                                            <option value="HR Generalist">HR Generalist</option>
+                                            <option value="HR Assistant">HR Assistant</option>
+                                        </select>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Department</label>
@@ -634,7 +647,19 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Business Line</label>
-                                        <input type="text" id="role-business-line" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                        <select id="role-business-line" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                            <option value="">Select Business Line</option>
+                                            <option value="Core Business">Core Business</option>
+                                            <option value="Support">Support</option>
+                                            <option value="Operations">Operations</option>
+                                            <option value="Growth">Growth</option>
+                                            <option value="Strategic">Strategic</option>
+                                            <option value="Administrative">Administrative</option>
+                                            <option value="Technical">Technical</option>
+                                            <option value="Sales & Marketing">Sales & Marketing</option>
+                                            <option value="Finance & Accounting">Finance & Accounting</option>
+                                            <option value="Legal & Compliance">Legal & Compliance</option>
+                                        </select>
                                     </div>
                                     <div class="flex space-x-3 pt-4">
                                         <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md font-medium">Add Role</button>
@@ -708,9 +733,9 @@
                                 <div class="flex items-center">
                                     <span class="w-20 text-sm text-gray-600">CCR</span>
                                     <div class="flex-1 bg-gray-200 rounded-full h-4 mx-3">
-                                        <div class="bg-blue-600 h-4 rounded-full" style="width: 25%"></div>
+                                        <div class="bg-blue-600 h-4 rounded-full" style="width: 20%"></div>
                                     </div>
-                                    <span class="w-12 text-sm font-medium text-gray-900">25%</span>
+                                    <span class="w-12 text-sm font-medium text-gray-900">20%</span>
                                 </div>
                                 <div class="flex items-center">
                                     <span class="w-20 text-sm text-gray-600">I2R</span>
@@ -722,23 +747,23 @@
                                 <div class="flex items-center">
                                     <span class="w-20 text-sm text-gray-600">MKD</span>
                                     <div class="flex-1 bg-gray-200 rounded-full h-4 mx-3">
-                                        <div class="bg-purple-600 h-4 rounded-full" style="width: 15%"></div>
+                                        <div class="bg-purple-600 h-4 rounded-full" style="width: 20%"></div>
                                     </div>
-                                    <span class="w-12 text-sm font-medium text-gray-900">15%</span>
+                                    <span class="w-12 text-sm font-medium text-gray-900">20%</span>
                                 </div>
                                 <div class="flex items-center">
                                     <span class="w-20 text-sm text-gray-600">Bacardi</span>
                                     <div class="flex-1 bg-gray-200 rounded-full h-4 mx-3">
-                                        <div class="bg-orange-600 h-4 rounded-full" style="width: 12%"></div>
+                                        <div class="bg-orange-600 h-4 rounded-full" style="width: 20%"></div>
                                     </div>
-                                    <span class="w-12 text-sm font-medium text-gray-900">12%</span>
+                                    <span class="w-12 text-sm font-medium text-gray-900">20%</span>
                                 </div>
                                 <div class="flex items-center">
-                                    <span class="w-20 text-sm text-gray-600">Others</span>
+                                    <span class="w-20 text-sm text-gray-600">Xone</span>
                                     <div class="flex-1 bg-gray-200 rounded-full h-4 mx-3">
-                                        <div class="bg-red-600 h-4 rounded-full" style="width: 28%"></div>
+                                        <div class="bg-red-600 h-4 rounded-full" style="width: 20%"></div>
                                     </div>
-                                    <span class="w-12 text-sm font-medium text-gray-900">28%</span>
+                                    <span class="w-12 text-sm font-medium text-gray-900">20%</span>
                                 </div>
                             </div>
                         </div>
@@ -758,19 +783,23 @@
                             <div class="mt-4 space-y-2">
                                 <div class="flex items-center">
                                     <div class="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
-                                    <span class="text-sm text-gray-600">HR Manager (30%)</span>
+                                    <span class="text-sm text-gray-600">HR Manager (20%)</span>
                                 </div>
                                 <div class="flex items-center">
                                     <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-                                    <span class="text-sm text-gray-600">HR Business Partner (25%)</span>
+                                    <span class="text-sm text-gray-600">HR Business Partner (20%)</span>
                                 </div>
                                 <div class="flex items-center">
                                     <div class="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
-                                    <span class="text-sm text-gray-600">Specialist (25%)</span>
+                                    <span class="text-sm text-gray-600">Recruitment Specialist (20%)</span>
                                 </div>
                                 <div class="flex items-center">
                                     <div class="w-3 h-3 bg-orange-500 rounded-full mr-2"></div>
-                                    <span class="text-sm text-gray-600">Other Roles (20%)</span>
+                                    <span class="text-sm text-gray-600">Talent Acquisition (20%)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+                                    <span class="text-sm text-gray-600">Learning & Development (20%)</span>
                                 </div>
                             </div>
                         </div>
@@ -965,29 +994,25 @@
                 return;
             }
             
-            // Add new role to the table
-            const tbody = document.getElementById('roles-table-body');
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${title}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${department}</td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="px-2 py-1 rounded-full text-xs font-medium ${criticality === 'High' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'}">
-                        ${criticality}
-                    </span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${businessLine}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <button class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
-                    <button class="text-red-600 hover:text-red-900">Delete</button>
-                </td>
-            `;
-            tbody.appendChild(newRow);
+            const editingIndex = document.getElementById('add-role-modal').getAttribute('data-editing-index');
+            
+            if (editingIndex !== null) {
+                // Editing existing role
+                globalRoles[editingIndex] = { title, department, criticality, business_line: businessLine };
+                showToast('Role updated successfully!', 'success');
+            } else {
+                // Adding new role
+                globalRoles.push({ title, department, criticality, business_line: businessLine });
+                showToast('Role added successfully!', 'success');
+            }
+            
+            // Reload roles table
+            loadRoles();
             
             // Update dashboard stats
             updateDashboardStats();
             
-            showToast('Role added successfully!', 'success');
+            // Reset modal
             closeAddRoleModal();
         });
         
@@ -1086,17 +1111,9 @@
         
         // Load roles data
         function loadRoles() {
-            const roles = [
-                { title: 'HR Director', department: 'CCR', criticality: 'High', business_line: 'Core Business' },
-                { title: 'HR Manager', department: 'CCR', criticality: 'High', business_line: 'Core Business' },
-                { title: 'HR Business Partner', department: 'I2R', criticality: 'Medium', business_line: 'Support' },
-                { title: 'Recruitment Specialist', department: 'MKD', criticality: 'Medium', business_line: 'Operations' },
-                { title: 'Talent Acquisition Manager', department: 'Bacardi', criticality: 'High', business_line: 'Growth' }
-            ];
-            
             const tbody = document.getElementById('roles-table-body');
-            tbody.innerHTML = roles.map(role => `
-                <tr>
+            tbody.innerHTML = globalRoles.map((role, index) => `
+                <tr data-role-index="${index}">
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${role.title}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${role.department}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -1106,8 +1123,8 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${role.business_line}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
-                        <button class="text-red-600 hover:text-red-900">Delete</button>
+                        <button onclick="editRole(${index})" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
+                        <button onclick="deleteRole(${index})" class="text-red-600 hover:text-red-900">Delete</button>
                     </td>
                 </tr>
             `).join('');
@@ -1197,7 +1214,21 @@
         function closeAddRoleModal() {
             document.getElementById('add-role-modal').classList.add('hidden');
             document.getElementById('add-role-form').reset();
+            
+            // Reset modal to add mode
+            document.querySelector('#add-role-modal h3').textContent = 'Add New Role';
+            document.querySelector('#add-role-modal button[type="submit"]').textContent = 'Add Role';
+            document.getElementById('add-role-modal').removeAttribute('data-editing-index');
         }
+        
+        // Global roles data for editing/deleting
+        let globalRoles = [
+            { title: 'HR Director', department: 'CCR', criticality: 'High', business_line: 'Core Business' },
+            { title: 'HR Manager', department: 'CCR', criticality: 'High', business_line: 'Core Business' },
+            { title: 'HR Business Partner', department: 'I2R', criticality: 'Medium', business_line: 'Support' },
+            { title: 'Recruitment Specialist', department: 'MKD', criticality: 'Medium', business_line: 'Operations' },
+            { title: 'Talent Acquisition Manager', department: 'Bacardi', criticality: 'High', business_line: 'Growth' }
+        ];
         
         // Update dashboard stats with real data
         function updateDashboardStats() {
@@ -1207,14 +1238,6 @@
                 { name: 'Anjali Verma', email: 'anjali.verma@mkd.com', department: 'MKD', role: 'Recruitment Specialist', status: 'Active' },
                 { name: 'Vikram Rao', email: 'vikram.rao@bacardi.com', department: 'Bacardi', role: 'Talent Acquisition Manager', status: 'Active' },
                 { name: 'Sneha Kapoor', email: 'sneha.kapoor@xone.com', department: 'Xone', role: 'Learning & Development Specialist', status: 'Active' }
-            ];
-            
-            const roles = [
-                { title: 'HR Director', department: 'CCR', criticality: 'High', business_line: 'Core Business' },
-                { title: 'HR Manager', department: 'CCR', criticality: 'High', business_line: 'Core Business' },
-                { title: 'HR Business Partner', department: 'I2R', criticality: 'Medium', business_line: 'Support' },
-                { title: 'Recruitment Specialist', department: 'MKD', criticality: 'Medium', business_line: 'Operations' },
-                { title: 'Talent Acquisition Manager', department: 'Bacardi', criticality: 'High', business_line: 'Growth' }
             ];
             
             const plans = [
@@ -1231,9 +1254,41 @@
             
             // Update dashboard stats
             document.getElementById('total-users').textContent = users.length;
-            document.getElementById('total-roles').textContent = roles.length;
+            document.getElementById('total-roles').textContent = globalRoles.length;
             document.getElementById('total-plans').textContent = plans.length;
             document.getElementById('pending-requests').textContent = requests.filter(r => r.status === 'Pending').length;
+        }
+        
+        // Edit role function
+        function editRole(index) {
+            const role = globalRoles[index];
+            if (!role) return;
+            
+            // Populate edit modal (you can create a separate edit modal or reuse add modal)
+            document.getElementById('role-title').value = role.title;
+            document.getElementById('role-department').value = role.department;
+            document.getElementById('role-criticality').value = role.criticality;
+            document.getElementById('role-business-line').value = role.business_line;
+            
+            // Change modal title and button
+            document.querySelector('#add-role-modal h3').textContent = 'Edit Role';
+            document.querySelector('#add-role-modal button[type="submit"]').textContent = 'Update Role';
+            
+            // Store the index being edited
+            document.getElementById('add-role-modal').setAttribute('data-editing-index', index);
+            
+            // Show modal
+            openAddRoleModal();
+        }
+        
+        // Delete role function
+        function deleteRole(index) {
+            if (confirm('Are you sure you want to delete this role?')) {
+                globalRoles.splice(index, 1);
+                loadRoles(); // Reload the table
+                updateDashboardStats(); // Update dashboard stats
+                showToast('Role deleted successfully!', 'success');
+            }
         }
         
         // Initialize app
