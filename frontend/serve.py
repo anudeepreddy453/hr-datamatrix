@@ -18,6 +18,12 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(DIRECTORY), **kwargs)
     
+    def do_GET(self):
+        # Serve index.html for root path
+        if self.path == '/':
+            self.path = '/index.html'
+        return super().do_GET()
+    
     def end_headers(self):
         # Add CORS headers for development
         self.send_header('Access-Control-Allow-Origin', '*')
