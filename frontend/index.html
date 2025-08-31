@@ -7,15 +7,11 @@
     <meta name="description" content="HR DataMatrix - Succession Planning & Management System" />
     <title>HR DataMatrix</title>
     
-    <!-- CDN Libraries -->
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/react-router-dom@6/umd/react-router-dom.development.js"></script>
-    <script src="https://unpkg.com/axios@1.6.0/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/react-hot-toast@2.4.1/dist/toast.js"></script>
-    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
     
     <!-- Custom CSS -->
     <style>
@@ -35,6 +31,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            min-width: 300px;
         }
         .toast.success {
             border-left: 4px solid #10b981;
@@ -45,228 +42,254 @@
         .toast.info {
             border-left: 4px solid #3b82f6;
         }
+        .hidden {
+            display: none;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
-<body>
-    <div id="root"></div>
+<body class="bg-gray-50">
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
     
-    <!-- Simple App Script -->
-    <script>
-        // Simple HR DataMatrix App
-        const { useState, useEffect } = React;
+    <!-- Login Form -->
+    <div id="login-container" class="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                HR DataMatrix
+            </h2>
+            <p class="mt-2 text-center text-sm text-gray-600">
+                Succession Planning & Management System
+            </p>
+        </div>
         
+        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                <form id="login-form" class="space-y-6">
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">
+                            Email address
+                        </label>
+                        <div class="mt-1">
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                autoComplete="email"
+                                required
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                placeholder="Enter your email"
+                            />
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700">
+                            Password
+                        </label>
+                        <div class="mt-1">
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                autoComplete="current-password"
+                                required
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                placeholder="Enter your password"
+                            />
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <button
+                            type="submit"
+                            id="login-button"
+                            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                        >
+                            Sign in
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="mt-6">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300" />
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">Demo Users</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 grid grid-cols-1 gap-3">
+                        <div class="text-xs text-gray-500 text-center space-y-1">
+                            <p><strong>CCR Department:</strong> priya.sharma@ccr.com / Priya@123</p>
+                            <p><strong>I2R Department:</strong> rohan.mehta@i2r.com / Rohan@123</p>
+                            <p><strong>MKD Department:</strong> anjali.verma@mkd.com / Anjali@123</p>
+                            <p><strong>Bacardi Department:</strong> vikram.rao@bacardi.com / Vikram@123</p>
+                            <p><strong>Xone Department:</strong> sneha.kapoor@xone.com / Sneha@123</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Dashboard -->
+    <div id="dashboard-container" class="hidden min-h-screen bg-gray-100">
+        <nav class="bg-white shadow">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <h1 class="text-xl font-semibold text-gray-900">HR DataMatrix</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span id="user-info" class="text-sm text-gray-700"></span>
+                        <button
+                            id="logout-button"
+                            class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                        >
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <div class="px-4 py-6 sm:px-0">
+                <div class="border-4 border-dashed border-gray-200 rounded-lg h-96 flex items-center justify-center">
+                    <div class="text-center">
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">
+                            Welcome to HR DataMatrix!
+                        </h3>
+                        <p id="welcome-message" class="text-gray-500 mb-4">
+                            You are successfully logged in.
+                        </p>
+                        <div class="bg-blue-50 border border-blue-200 rounded-md p-4 max-w-md mx-auto">
+                            <h4 class="text-sm font-medium text-blue-800 mb-2">System Status</h4>
+                            <ul class="text-sm text-blue-700 space-y-1">
+                                <li>✅ Authentication System: Working</li>
+                                <li>✅ User Management: Active</li>
+                                <li>✅ Role-Based Access: Enabled</li>
+                                <li>✅ Department Management: Active</li>
+                            </ul>
+                        </div>
+                        <p class="text-sm text-gray-400 mt-4">
+                            This is a simplified CDN version. For full features, run npm install.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
         // Toast function
         function showToast(message, type = 'info') {
             const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
+            toast.className = `toast ${type} fade-in`;
             toast.innerHTML = `
                 <span>${message}</span>
-                <button onclick="this.parentElement.remove()" class="ml-auto text-gray-400 hover:text-gray-600">×</button>
+                <button onclick="this.parentElement.remove()" class="ml-auto text-gray-400 hover:text-gray-600 text-lg font-bold">×</button>
             `;
             
-            const container = document.querySelector('.toast-container') || (() => {
-                const cont = document.createElement('div');
-                cont.className = 'toast-container';
-                document.body.appendChild(cont);
-                return cont;
-            })();
-            
+            const container = document.getElementById('toast-container');
             container.appendChild(toast);
-            setTimeout(() => toast.remove(), 5000);
+            
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.remove();
+                }
+            }, 5000);
         }
         
-        // Simple Login Component
-        function Login() {
-            const [email, setEmail] = useState('');
-            const [password, setPassword] = useState('');
-            const [loading, setLoading] = useState(false);
+        // Check if user is already logged in
+        function checkAuthStatus() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
             
-            const handleLogin = async (e) => {
-                e.preventDefault();
-                setLoading(true);
+            if (token && user) {
+                showDashboard(JSON.parse(user));
+            }
+        }
+        
+        // Show dashboard
+        function showDashboard(user) {
+            document.getElementById('login-container').classList.add('hidden');
+            document.getElementById('dashboard-container').classList.remove('hidden');
+            
+            document.getElementById('user-info').textContent = `Welcome, ${user.name} (${user.department})`;
+            document.getElementById('welcome-message').textContent = `You are logged in as ${user.role} in ${user.department} department.`;
+        }
+        
+        // Show login
+        function showLogin() {
+            document.getElementById('dashboard-container').classList.add('hidden');
+            document.getElementById('login-container').classList.remove('hidden');
+        }
+        
+        // Handle login form submission
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const button = document.getElementById('login-button');
+            
+            if (!email || !password) {
+                showToast('Please enter both email and password', 'error');
+                return;
+            }
+            
+            // Disable button and show loading
+            button.disabled = true;
+            button.textContent = 'Signing in...';
+            
+            try {
+                const response = await axios.post('http://localhost:5001/api/auth/login', {
+                    email: email,
+                    password: password
+                });
                 
-                try {
-                    const response = await axios.post('http://localhost:5001/api/auth/login', {
-                        email,
-                        password
-                    });
+                if (response.data.access_token) {
+                    localStorage.setItem('token', response.data.access_token);
+                    localStorage.setItem('user', JSON.stringify(response.data.user));
                     
-                    if (response.data.access_token) {
-                        localStorage.setItem('token', response.data.access_token);
-                        localStorage.setItem('user', JSON.stringify(response.data.user));
-                        showToast('Login successful!', 'success');
-                        window.location.reload();
-                    }
-                } catch (error) {
-                    showToast(error.response?.data?.message || 'Login failed', 'error');
-                } finally {
-                    setLoading(false);
+                    showToast('Login successful!', 'success');
+                    showDashboard(response.data.user);
                 }
-            };
-            
-            return (
-                <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-                    <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                            HR DataMatrix
-                        </h2>
-                        <p className="mt-2 text-center text-sm text-gray-600">
-                            Succession Planning & Management System
-                        </p>
-                    </div>
-                    
-                    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                            <form className="space-y-6" onSubmit={handleLogin}>
-                                <div>
-                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                        Email address
-                                    </label>
-                                    <div className="mt-1">
-                                        <input
-                                            id="email"
-                                            name="email"
-                                            type="email"
-                                            autoComplete="email"
-                                            required
-                                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                        />
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                                        Password
-                                    </label>
-                                    <div className="mt-1">
-                                        <input
-                                            id="password"
-                                            name="password"
-                                            type="password"
-                                            autoComplete="current-password"
-                                            required
-                                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                        />
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <button
-                                        type="submit"
-                                        disabled={loading}
-                                        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
-                                    >
-                                        {loading ? 'Signing in...' : 'Sign in'}
-                                    </button>
-                                </div>
-                            </form>
-                            
-                            <div className="mt-6">
-                                <div className="relative">
-                                    <div className="absolute inset-0 flex items-center">
-                                        <div className="w-full border-t border-gray-300" />
-                                    </div>
-                                    <div className="relative flex justify-center text-sm">
-                                        <span className="px-2 bg-white text-gray-500">Demo Users</span>
-                                    </div>
-                                </div>
-                                
-                                <div className="mt-6 grid grid-cols-1 gap-3">
-                                    <div className="text-xs text-gray-500 text-center">
-                                        <p><strong>CCR Department:</strong> priya.sharma@ccr.com / Priya@123</p>
-                                        <p><strong>I2R Department:</strong> rohan.mehta@i2r.com / Rohan@123</p>
-                                        <p><strong>MKD Department:</strong> anjali.verma@mkd.com / Anjali@123</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
+            } catch (error) {
+                console.error('Login error:', error);
+                const errorMessage = error.response?.data?.message || 'Login failed. Please check your credentials.';
+                showToast(errorMessage, 'error');
+            } finally {
+                // Re-enable button
+                button.disabled = false;
+                button.textContent = 'Sign in';
+            }
+        });
         
-        // Simple Dashboard Component
-        function Dashboard() {
-            const [user, setUser] = useState(null);
-            
-            useEffect(() => {
-                const userData = localStorage.getItem('user');
-                if (userData) {
-                    setUser(JSON.parse(userData));
-                }
-            }, []);
-            
-            const handleLogout = () => {
-                localStorage.removeItem('token');
-                localStorage.removeItem('user');
-                window.location.reload();
-            };
-            
-            if (!user) return null;
-            
-            return (
-                <div className="min-h-screen bg-gray-100">
-                    <nav className="bg-white shadow">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="flex justify-between h-16">
-                                <div className="flex items-center">
-                                    <h1 className="text-xl font-semibold text-gray-900">HR DataMatrix</h1>
-                                </div>
-                                <div className="flex items-center space-x-4">
-                                    <span className="text-sm text-gray-700">
-                                        Welcome, {user.name} ({user.department})
-                                    </span>
-                                    <button
-                                        onClick={handleLogout}
-                                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Logout
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-                    
-                    <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-                        <div className="px-4 py-6 sm:px-0">
-                            <div className="border-4 border-dashed border-gray-200 rounded-lg h-96 flex items-center justify-center">
-                                <div className="text-center">
-                                    <h3 className="text-lg font-medium text-gray-900 mb-2">
-                                        Welcome to HR DataMatrix!
-                                    </h3>
-                                    <p className="text-gray-500">
-                                        You are logged in as {user.role} in {user.department} department.
-                                    </p>
-                                    <p className="text-sm text-gray-400 mt-2">
-                                        This is a simplified CDN version. For full features, run npm install.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </main>
-                </div>
-            );
-        }
+        // Handle logout
+        document.getElementById('logout-button').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            showToast('Logged out successfully', 'info');
+            showLogin();
+        });
         
-        // Main App Component
-        function App() {
-            const [isLoggedIn, setIsLoggedIn] = useState(false);
-            
-            useEffect(() => {
-                const token = localStorage.getItem('token');
-                setIsLoggedIn(!!token);
-            }, []);
-            
-            return isLoggedIn ? <Dashboard /> : <Login />;
-        }
-        
-        // Render the app
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            showToast('HR DataMatrix loaded successfully!', 'info');
+        });
     </script>
 </body>
 </html>
