@@ -406,6 +406,54 @@
                         </button>
                     </div>
                 </div>
+                
+                <!-- Navigation Menu -->
+                <div class="border-t border-gray-200">
+                    <nav class="flex space-x-8 px-4">
+                        <button
+                            id="nav-dashboard"
+                            class="nav-item py-4 px-2 border-b-2 border-indigo-500 text-indigo-600 font-medium text-sm"
+                            onclick="showSection('dashboard')"
+                        >
+                            Dashboard
+                        </button>
+                        <button
+                            id="nav-users"
+                            class="nav-item py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm"
+                            onclick="showSection('users')"
+                        >
+                            User Management
+                        </button>
+                        <button
+                            id="nav-roles"
+                            class="nav-item py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm"
+                            onclick="showSection('roles')"
+                        >
+                            Role Management
+                        </button>
+                        <button
+                            id="nav-succession"
+                            class="nav-item py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm"
+                            onclick="showSection('succession')"
+                        >
+                            Succession Plans
+                        </button>
+                        <button
+                            id="nav-access"
+                            class="nav-item py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm"
+                            onclick="showSection('access')"
+                        >
+                            Access Requests
+                        </button>
+                        <button
+                            id="nav-analytics"
+                            class="nav-item py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm"
+                            onclick="showSection('analytics')"
+                        >
+                            Analytics
+                        </button>
+                    </nav>
+                </div>
             </div>
         </nav>
         
@@ -477,8 +525,8 @@
                     </div>
                 </div>
                 
-                <!-- Main Dashboard Content -->
-                <div class="bg-white rounded-xl shadow-md p-8">
+                <!-- Dashboard Section -->
+                <div id="dashboard-section" class="bg-white rounded-xl shadow-md p-8">
                     <div class="text-center">
                         <div class="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
                             <svg class="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -507,6 +555,124 @@
                         <p class="text-gray-500 mt-6">
                             Your HR DataMatrix system is running smoothly with all features operational.
                         </p>
+                    </div>
+                </div>
+                
+                <!-- User Management Section -->
+                <div id="users-section" class="hidden bg-white rounded-xl shadow-md p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900">User Management</h3>
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-300">
+                            + Add User
+                        </button>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200" id="users-table-body">
+                                <!-- Users will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Role Management Section -->
+                <div id="roles-section" class="hidden bg-white rounded-xl shadow-md p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900">Role Management</h3>
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-300">
+                            + Add Role
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="roles-grid">
+                        <!-- Roles will be loaded here -->
+                    </div>
+                </div>
+                
+                <!-- Succession Plans Section -->
+                <div id="succession-section" class="hidden bg-white rounded-xl shadow-md p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900">Succession Plans</h3>
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-300">
+                            + Add Plan
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-6" id="succession-plans">
+                        <!-- Succession plans will be loaded here -->
+                    </div>
+                </div>
+                
+                <!-- Access Requests Section -->
+                <div id="access-section" class="hidden bg-white rounded-xl shadow-md p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900">Access Requests</h3>
+                        <div class="flex space-x-2">
+                            <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                                <option value="all">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4" id="access-requests">
+                        <!-- Access requests will be loaded here -->
+                    </div>
+                </div>
+                
+                <!-- Analytics Section -->
+                <div id="analytics-section" class="hidden bg-white rounded-xl shadow-md p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Analytics Dashboard</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-6 text-white">
+                            <h4 class="text-lg font-semibold mb-2">Department Distribution</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span>CCR</span>
+                                    <span>25%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>I2R</span>
+                                    <span>20%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>MKD</span>
+                                    <span>15%</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-green-500 to-teal-600 rounded-xl p-6 text-white">
+                            <h4 class="text-lg font-semibold mb-2">Role Distribution</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span>HR Manager</span>
+                                    <span>30%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>HR Business Partner</span>
+                                    <span>25%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Specialist</span>
+                                    <span>45%</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -674,6 +840,188 @@
             if (token && user) {
                 showDashboard(JSON.parse(user));
             }
+        }
+        
+        // Navigation functions
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('[id$="-section"]').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Remove active state from all nav items
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('border-indigo-500', 'text-indigo-600');
+                nav.classList.add('border-transparent', 'text-gray-500');
+            });
+            
+            // Show selected section
+            document.getElementById(`${sectionName}-section`).classList.remove('hidden');
+            
+            // Activate selected nav item
+            document.getElementById(`nav-${sectionName}`).classList.remove('border-transparent', 'text-gray-500');
+            document.getElementById(`nav-${sectionName}`).classList.add('border-indigo-500', 'text-indigo-600');
+            
+            // Load section data
+            loadSectionData(sectionName);
+        }
+        
+        // Load data for each section
+        function loadSectionData(sectionName) {
+            switch(sectionName) {
+                case 'users':
+                    loadUsers();
+                    break;
+                case 'roles':
+                    loadRoles();
+                    break;
+                case 'succession':
+                    loadSuccessionPlans();
+                    break;
+                case 'access':
+                    loadAccessRequests();
+                    break;
+                case 'analytics':
+                    loadAnalytics();
+                    break;
+            }
+        }
+        
+        // Load users data
+        function loadUsers() {
+            const users = [
+                { name: 'Priya Sharma', email: 'priya.sharma@ccr.com', department: 'CCR', role: 'HR Manager', status: 'Active' },
+                { name: 'Rohan Mehta', email: 'rohan.mehta@i2r.com', department: 'I2R', role: 'HR Business Partner', status: 'Active' },
+                { name: 'Anjali Verma', email: 'anjali.verma@mkd.com', department: 'MKD', role: 'Recruitment Specialist', status: 'Active' },
+                { name: 'Vikram Rao', email: 'vikram.rao@bacardi.com', department: 'Bacardi', role: 'Talent Acquisition Manager', status: 'Active' },
+                { name: 'Sneha Kapoor', email: 'sneha.kapoor@xone.com', department: 'Xone', role: 'Learning & Development Specialist', status: 'Active' }
+            ];
+            
+            const tbody = document.getElementById('users-table-body');
+            tbody.innerHTML = users.map(user => `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${user.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.email}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.department}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.role}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                            ${user.status}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
+                        <button class="text-red-600 hover:text-red-900">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // Load roles data
+        function loadRoles() {
+            const roles = [
+                { title: 'HR Director', department: 'CCR', criticality: 'High', business_line: 'Core Business' },
+                { title: 'HR Manager', department: 'CCR', criticality: 'High', business_line: 'Core Business' },
+                { title: 'HR Business Partner', department: 'I2R', criticality: 'Medium', business_line: 'Support' },
+                { title: 'Recruitment Specialist', department: 'MKD', criticality: 'Medium', business_line: 'Operations' },
+                { title: 'Talent Acquisition Manager', department: 'Bacardi', criticality: 'High', business_line: 'Growth' }
+            ];
+            
+            const grid = document.getElementById('roles-grid');
+            grid.innerHTML = roles.map(role => `
+                <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-300">
+                    <h4 class="text-lg font-semibold text-gray-900 mb-2">${role.title}</h4>
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <p><span class="font-medium">Department:</span> ${role.department}</p>
+                        <p><span class="font-medium">Criticality:</span> 
+                            <span class="px-2 py-1 rounded-full text-xs ${role.criticality === 'High' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'}">
+                                ${role.criticality}
+                            </span>
+                        </p>
+                        <p><span class="font-medium">Business Line:</span> ${role.business_line}</p>
+                    </div>
+                    <div class="mt-4 flex space-x-2">
+                        <button class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Edit</button>
+                        <button class="text-red-600 hover:text-red-900 text-sm font-medium">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Load succession plans
+        function loadSuccessionPlans() {
+            const plans = [
+                { role: 'HR Director', incumbent: 'John Smith', employee_id: 'EMP001', tenure: '8 years', retirement: '2026-12-31', readiness: 'Ready Now' },
+                { role: 'HR Manager', incumbent: 'Priya Sharma', employee_id: 'EMP002', tenure: '5 years', retirement: '2027-06-15', readiness: 'Ready in 6 months' },
+                { role: 'HR Business Partner', incumbent: 'Rohan Mehta', employee_id: 'EMP003', tenure: '3 years', retirement: '2028-03-20', readiness: 'Ready in 1 year' }
+            ];
+            
+            const container = document.getElementById('succession-plans');
+            container.innerHTML = plans.map(plan => `
+                <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="text-lg font-semibold text-gray-900">${plan.role}</h4>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            ${plan.readiness}
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm text-gray-600">
+                        <div>
+                            <p><span class="font-medium">Incumbent:</span> ${plan.incumbent}</p>
+                            <p><span class="font-medium">Employee ID:</span> ${plan.employee_id}</p>
+                        </div>
+                        <div>
+                            <p><span class="font-medium">Tenure:</span> ${plan.tenure}</p>
+                            <p><span class="font-medium">Retirement:</span> ${plan.retirement}</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex space-x-2">
+                        <button class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Edit</button>
+                        <button class="text-red-600 hover:text-red-900 text-sm font-medium">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Load access requests
+        function loadAccessRequests() {
+            const requests = [
+                { name: 'Uday Kumar', email: 'uday.kumar@company.com', department: 'CCR', status: 'Pending', date: '2025-08-31' },
+                { name: 'Sarah Johnson', email: 'sarah.johnson@company.com', department: 'I2R', status: 'Approved', date: '2025-08-30' },
+                { name: 'Mike Chen', email: 'mike.chen@company.com', department: 'MKD', status: 'Rejected', date: '2025-08-29' }
+            ];
+            
+            const container = document.getElementById('access-requests');
+            container.innerHTML = requests.map(request => `
+                <div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-300">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h4 class="font-medium text-gray-900">${request.name}</h4>
+                            <p class="text-sm text-gray-500">${request.email} • ${request.department}</p>
+                            <p class="text-xs text-gray-400">Requested: ${request.date}</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-1 rounded-full text-xs font-medium ${
+                                request.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
+                                request.status === 'Approved' ? 'bg-green-100 text-green-800' :
+                                'bg-red-100 text-red-800'
+                            }">
+                                ${request.status}
+                            </span>
+                            ${request.status === 'Pending' ? `
+                                <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs">Approve</button>
+                                <button class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs">Reject</button>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Load analytics
+        function loadAnalytics() {
+            // Analytics data is already in the HTML
+            showToast('Analytics data loaded successfully!', 'info');
         }
         
         // Initialize app
